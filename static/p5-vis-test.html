@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P5 Music Visualization</title>
+  <script src="js/p5/p5.min.js"></script>
+  <script src="js/p5/addons/p5.sound.min.js"></script>
+  <script>
+    /*
+    * @name Load and Play Sound
+    * @description Load sound during preload(). Play a sound when canvas is clicked.
+    * <br><br><em><span class="small"> To run this example locally, you will need the
+    * <a href="http://p5js.org/reference/#/libraries/p5.sound">p5.sound library</a>
+    * a sound file, and a running <a href="https://github.com/processing/p5.js/wiki/Local-server">local server</a>.</span></em>
+    */
+    let song;
+    let bgColor;
+
+
+    function setup() {
+      song = loadSound('assets/lucky_dragons_-_power_melody.mp3');
+      bgColor = new p5.Color(255, 0, 0);
+      console.log(bgColor);
+      createCanvas(720, 200);
+      background(bgColor);
+      noFill();
+      
+      fft = new p5.FFT();
+      fft.setInput(song);
+    }
+
+    function mousePressed() {
+      if (song.isPlaying()) {
+        song.stop();
+        bgColor = color(255, 0, 0);
+      } else {
+        song.play();
+        bgColor = color(0, 255, 0);
+      }
+    }
+
+    function draw() {
+      background(bgColor);
+
+      let spectrum = fft.analyze();
+
+      beginShape();
+      for (i = 0; i < spectrum.length; i++) {
+        vertex(i, map(spectrum[i], 0, 255, height, 0));
+      }
+      endShape();
+    }
+
+  </script>
+</head>
+<body>
+  
+</body>
+</html>
