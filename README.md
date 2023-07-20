@@ -1,5 +1,9 @@
 # This is Your Music On Brain
 
+![Screenshot of user interface.](./docs/main-screen.png)
+
+To function properly, this app requires a backend. You can preview the UI [here](https://music-on-brain.github.io/your-music-on-brain/static/index.html).
+
 ## Getting Started
 
 Setup:
